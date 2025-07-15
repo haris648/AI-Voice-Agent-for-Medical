@@ -14,7 +14,8 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { ArrowRight, Loader2 } from 'lucide-react'
 import axios from 'axios'
-import { doctorAgent } from './DoctorAgentCard'
+import DoctorAgentCard, { doctorAgent } from './DoctorAgentCard'
+import SuggestedDoctorCard from './SuggestedDoctorCard'
 
 
 function AddNewSessionDialog() {
@@ -50,8 +51,13 @@ function AddNewSessionDialog() {
             <Textarea placeholder='Add Details Here....' className='h-[200px] mt-1'
             onChange={(e)=>setNote(e.target.value)}/>
         </div>:
-        <div>
+        <div className='grid grid-cols-2 gap-5'>
             {/* // Suggested Doctors  */}
+
+            {suggestedDoctors.map((doctor, index)=>(
+              // <DoctorAgentCard doctorAgent={doctor} key={index}/>
+              <SuggestedDoctorCard doctorAgent={doctor} key={index}/>
+            ))}
           </div>}
       </DialogDescription>
     </DialogHeader>
