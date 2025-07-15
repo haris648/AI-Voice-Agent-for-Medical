@@ -22,6 +22,7 @@ function AddNewSessionDialog() {
     const [note, setNote] = useState<string>();
     const [loading,setLoading] = useState(false);
     const [suggestedDoctors,setSuggestedDoctors] = useState<doctorAgent[]>();
+    const [selectedDoctor,setSelectedDoctor] = useState<doctorAgent>();
 
     const onClickNext = async () => {
       setLoading(true);
@@ -34,7 +35,7 @@ function AddNewSessionDialog() {
     }
 
     const onStartConsultation = () => {
-
+      // save all info to database
     }
 
   return (
@@ -59,7 +60,8 @@ function AddNewSessionDialog() {
 
                 {suggestedDoctors.map((doctor, index)=>(
                   // <DoctorAgentCard doctorAgent={doctor} key={index}/>
-                  <SuggestedDoctorCard doctorAgent={doctor} key={index}/>
+                  <SuggestedDoctorCard doctorAgent={doctor} key={index} 
+                  setSelectedDoctor={()=>setSelectedDoctor(doctor)}/>
                 ))}
               </div>
           </div> }
