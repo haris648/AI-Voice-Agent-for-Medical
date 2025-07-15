@@ -13,10 +13,23 @@ import {
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { ArrowRight } from 'lucide-react'
+import axios from 'axios'
 
 
 function AddNewSessionDialog() {
     const [note, setNote] = useState<string>();
+    const [loading,setLoading] = useState(false);
+
+    const onClickNext = async () => {
+      setLoading(true);
+      const result=await axios.post('api/suggest-doctors',{
+        notes: note
+      });
+      console.log(result.data);
+      // setSuggestedDoctors(result.data);
+      setLoading(false);
+    }
+
   return (
     <Dialog>
   <DialogTrigger>
@@ -38,7 +51,7 @@ function AddNewSessionDialog() {
             <Button variant={'outline'}>Cancel</Button>
         </DialogClose>
         
-        <Button disabled={!note}>Next<ArrowRight/></Button>
+        <Button disabled={!note} onClick={()=>onClickNext()}>Next<ArrowRight/></Button>
     </DialogFooter>
   </DialogContent>
 </Dialog>

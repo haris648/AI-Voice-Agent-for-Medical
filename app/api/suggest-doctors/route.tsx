@@ -14,9 +14,10 @@ export async function POST(req:NextRequest) {
   });
   const rawResp = completion.choices[0].message;
   //@ts-ignore
-//   const Resp = rawResp.content.trim().replace('```json','').replace('```','')
-//   const JSONResp=JSON.parse(Resp);
-  return NextResponse.json(rawResp);
+  const Resp = rawResp.content.trim().replace('```json','').replace('```','')
+  const JSONResp=JSON.parse(Resp);
+  
+  return NextResponse.json(JSONResp);
     }
     catch(e) {
         return NextResponse.json(e);
