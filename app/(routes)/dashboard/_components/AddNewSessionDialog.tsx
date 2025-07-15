@@ -12,13 +12,15 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import axios from 'axios'
+import { doctorAgent } from './DoctorAgentCard'
 
 
 function AddNewSessionDialog() {
     const [note, setNote] = useState<string>();
     const [loading,setLoading] = useState(false);
+    const [suggestedDoctors,setSuggestedDoctors] = useState<doctorAgent[]>();
 
     const onClickNext = async () => {
       setLoading(true);
@@ -26,8 +28,12 @@ function AddNewSessionDialog() {
         notes: note
       });
       console.log(result.data);
-      // setSuggestedDoctors(result.data);
+      setSuggestedDoctors(result.data);
       setLoading(false);
+    }
+
+    const onStartConsultation = () => {
+      
     }
 
   return (
@@ -39,11 +45,14 @@ function AddNewSessionDialog() {
     <DialogHeader>
       <DialogTitle>Add Basic Details</DialogTitle>
       <DialogDescription asChild>
-        <div>
+        {!suggestedDoctors? <div>
             <h2>Add Symptoms or Any Other Details</h2>
             <Textarea placeholder='Add Details Here....' className='h-[200px] mt-1'
             onChange={(e)=>setNote(e.target.value)}/>
-        </div>
+        </div>:
+        <div>
+            {/* // Suggested Doctors  */}
+          </div>}
       </DialogDescription>
     </DialogHeader>
     <DialogFooter>
@@ -51,7 +60,11 @@ function AddNewSessionDialog() {
             <Button variant={'outline'}>Cancel</Button>
         </DialogClose>
         
-        <Button disabled={!note} onClick={()=>onClickNext()}>Next<ArrowRight/></Button>
+        {!suggestedDoctors? <Button disabled={!note} onClick={()=>onClickNext()}>
+          
+          Next {loading && <Loader2 className='animate-spin' />}<ArrowRight/></Button>
+          :
+          <Button onClick={()=>onStartConsultation()}>Start Consultation</Button>}
     </DialogFooter>
   </DialogContent>
 </Dialog>
