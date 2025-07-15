@@ -33,7 +33,7 @@ function AddNewSessionDialog() {
     }
 
     const onStartConsultation = () => {
-      
+
     }
 
   return (
@@ -60,9 +60,9 @@ function AddNewSessionDialog() {
             <Button variant={'outline'}>Cancel</Button>
         </DialogClose>
         
-        {!suggestedDoctors? <Button disabled={!note} onClick={()=>onClickNext()}>
+        {!suggestedDoctors? <Button disabled={!note||loading} onClick={()=>onClickNext()}>
           
-          Next {loading && <Loader2 className='animate-spin' />}<ArrowRight/></Button>
+          Next {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>
           :
           <Button onClick={()=>onStartConsultation()}>Start Consultation</Button>}
     </DialogFooter>
