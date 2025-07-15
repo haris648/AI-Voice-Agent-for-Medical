@@ -51,14 +51,18 @@ function AddNewSessionDialog() {
             <Textarea placeholder='Add Details Here....' className='h-[200px] mt-1'
             onChange={(e)=>setNote(e.target.value)}/>
         </div>:
-        <div className='grid grid-cols-2 gap-5'>
-            {/* // Suggested Doctors  */}
 
-            {suggestedDoctors.map((doctor, index)=>(
-              // <DoctorAgentCard doctorAgent={doctor} key={index}/>
-              <SuggestedDoctorCard doctorAgent={doctor} key={index}/>
-            ))}
-          </div>}
+        <div>
+            <h2>Select the Doctor</h2>
+            <div className='grid grid-cols-2 gap-5'>
+                {/* // Suggested Doctors  */}
+
+                {suggestedDoctors.map((doctor, index)=>(
+                  // <DoctorAgentCard doctorAgent={doctor} key={index}/>
+                  <SuggestedDoctorCard doctorAgent={doctor} key={index}/>
+                ))}
+              </div>
+          </div> }
       </DialogDescription>
     </DialogHeader>
     <DialogFooter>
