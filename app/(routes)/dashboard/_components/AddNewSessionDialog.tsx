@@ -34,8 +34,19 @@ function AddNewSessionDialog() {
       setLoading(false);
     }
 
-    const onStartConsultation = () => {
+    const onStartConsultation = async() => {
       // save all info to database
+      setLoading(true);
+      const result=await axios.post('api/session-chat',{
+        notes: note,
+        selectedDoctor:selectedDoctor
+      });
+      console.log(result.data);
+      if(result.data?.sessionId)
+      {
+        console.log(result.data.sessionId);
+      }
+      setLoading(false);
     }
 
   return (
@@ -76,7 +87,8 @@ function AddNewSessionDialog() {
           
           Next {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>
           :
-          <Button onClick={()=>onStartConsultation()}>Start Consultation</Button>}
+          <Button disabled={loading} onClick={()=>onStartConsultation()}>Start Consultation
+          {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>}
     </DialogFooter>
   </DialogContent>
 </Dialog>

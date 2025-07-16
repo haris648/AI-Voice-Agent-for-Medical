@@ -18,7 +18,7 @@ export async function POST(req:NextRequest) {
             //@ts-ignore
         }).returning({SessionChatTable});
 
-        return NextResponse.json(result);
+        return NextResponse.json(result[0].SessionChatTable);
     }
 
     catch (e) {
