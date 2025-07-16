@@ -72,7 +72,9 @@ function AddNewSessionDialog() {
                 {suggestedDoctors.map((doctor, index)=>(
                   // <DoctorAgentCard doctorAgent={doctor} key={index}/>
                   <SuggestedDoctorCard doctorAgent={doctor} key={index} 
-                  setSelectedDoctor={()=>setSelectedDoctor(doctor)}/>
+                  setSelectedDoctor={()=>setSelectedDoctor(doctor)} 
+                  //@ts-ignore
+                  selectedDoctor={selectedDoctor}/>
                 ))}
               </div>
           </div> }
@@ -87,7 +89,7 @@ function AddNewSessionDialog() {
           
           Next {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>
           :
-          <Button disabled={loading} onClick={()=>onStartConsultation()}>Start Consultation
+          <Button disabled={loading || !selectedDoctor} onClick={()=>onStartConsultation()}>Start Consultation
           {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>}
     </DialogFooter>
   </DialogContent>
