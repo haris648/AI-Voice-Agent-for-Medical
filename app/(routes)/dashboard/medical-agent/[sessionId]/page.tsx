@@ -7,6 +7,7 @@ import { Circle, PhoneCall, PhoneOff } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Vapi from '@vapi-ai/web';
+import Provider from '@/app/provider';
 
 type sessionDetail = {
   id: number,
@@ -14,7 +15,8 @@ type sessionDetail = {
   sessionId: string,
   report: JSON,
   selectedDoctor: doctorAgent,
-  createdOn: string
+  createdOn: string,
+  
 
 }
 
@@ -51,7 +53,32 @@ function MedicalVoiceAgent() {
       // Start voice conversation
       const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY!);
       setVapiInstance(vapi);
-      vapi.start(process.env.NEXT_PUBLIC_VAPI_VOICE_ASSISTANT_ID);
+
+      const VapiAgentConfig ={
+        name:'AI Medical Doctor Voice Agent',
+        firstMessage: "Hi there, I'm your AI Medical Voice Assistant. I'm here to help you with any health issues you are facing. Please tell me how you are feeling?",
+        transcriber: {
+          language: 'en',
+          provider: 'assembly-ai'
+        },
+        voice:{
+          provider:'playht',
+          voiceId:sessionDetail?.selectedDoctor?.voiceId
+        },
+        model:{
+          provider:'openai',
+          model:'gpt-4',
+          messages:[
+            {
+              role: 'system',
+              content: sessionDetail?.selectedDoctor?.agentPrompt
+            }
+          ]
+        }
+      }
+
+      //@ts-ignore
+      vapi.start(VapiAgentConfig);
       // Listen for events
       vapi.on('call-start', () => {console.log('Call started')
         setCallStarted(true);
