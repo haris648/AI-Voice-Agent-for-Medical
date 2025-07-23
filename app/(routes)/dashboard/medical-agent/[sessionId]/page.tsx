@@ -114,26 +114,27 @@ function MedicalVoiceAgent() {
       });
   }
 
-  const endCall = async() => {
-    
+  const endCall = async () => {
+  try {
     const result = await GenerateReport();
     if (!vapiInstance) return;
-      //stop the call
-      vapiInstance.stop();
-      //optionally remove listeners (good for memory management)
-      vapiInstance.off('call-start');
-      vapiInstance.off('call-end');
-      vapiInstance.off('message');
-      vapiInstance.off('speech-start');
-      vapiInstance.off('speech-end');
 
-      //reset call state
-      setCallStarted(false);
-      setVapiInstance(null);
+    vapiInstance.stop();
+    vapiInstance.off('call-start');
+    vapiInstance.off('call-end');
+    vapiInstance.off('message');
+    vapiInstance.off('speech-start');
+    vapiInstance.off('speech-end');
 
+    setCallStarted(false);
+    setVapiInstance(null);
+  } finally {
+    setTimeout(() => {
       router.replace('/dashboard');
+    }, 100);
+  }
+};
 
-  };
 
    const GenerateReport = async () => {
     setLoading(true);
