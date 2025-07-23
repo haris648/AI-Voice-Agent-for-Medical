@@ -3,7 +3,7 @@ import { SessionChatTable } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,26 +35,33 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  try {
+  
     const { searchParams } = new URL(req.url);
     const sessionId = searchParams.get("sessionId");
+    const user = await currentUser();
 
     if (!sessionId) {
       return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
     }
 
+    if (sessionId=='all'){
     const result = await db
       .select()
       .from(SessionChatTable)
+      //@ts-ignore
+      .where(eq(SessionChatTable.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .orderBy(desc(SessionChatTable.id));
+
+      return NextResponse.json(result);
+      }
+      else{
+        const result = await db
+      .select()
+      .from(SessionChatTable)
+      //@ts-ignore
       .where(eq(SessionChatTable.sessionId, sessionId));
 
-    if (!result || result.length === 0) {
-      return NextResponse.json({ error: "Session not found" }, { status: 404 });
-    }
-
-    return NextResponse.json(result[0], { status: 200 });
-  } catch (e) {
-    console.error("GET /api/session-chat error:", e);
-    return NextResponse.json({ error: "Failed to fetch session", details: e }, { status: 500 });
-  }
-}
+      return NextResponse.json(result[0]);
+      }
+      }
+      
