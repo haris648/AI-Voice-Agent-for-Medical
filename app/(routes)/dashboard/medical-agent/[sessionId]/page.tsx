@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Vapi from '@vapi-ai/web';
 
+
 export type sessionDetail = {
   id: number,
   notes: string,
@@ -15,8 +16,7 @@ export type sessionDetail = {
   report: JSON,
   selectedDoctor: doctorAgent,
   createdOn: string,
-  
-
+  createdBy: string
 }
 
 type messages = {
