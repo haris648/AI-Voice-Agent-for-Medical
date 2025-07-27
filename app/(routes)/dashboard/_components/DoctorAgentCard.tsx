@@ -1,4 +1,7 @@
+"use client"
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@clerk/nextjs'
 import { IconArrowRight } from '@tabler/icons-react'
 import Image from 'next/image'
 import React from 'react'
@@ -9,7 +12,8 @@ export type doctorAgent = {
     description: string,
     image: string,
     agentPrompt: string,
-    voiceId?: string
+    voiceId?: string,
+    subscriptionRequired: boolean
 }
 
 type props = {
@@ -17,8 +21,15 @@ type props = {
 }
 
 function DoctorAgentCard({doctorAgent}:props) {
+
+  const { has } = useAuth()
+
+  const paidUser = has && has({ plan: 'pro' });
+  console.log(paidUser);
+
   return (
-    <div className=''>
+    <div className='relative'>
+        {doctorAgent?.subscriptionRequired&&<Badge className='absolute m-2 right-0'>Premium</Badge>}
         <Image src={doctorAgent.image}
         alt={doctorAgent.specialist}
         width={200}
@@ -27,7 +38,7 @@ function DoctorAgentCard({doctorAgent}:props) {
 
         <h2 className='font-bold mt-1'>{doctorAgent.specialist}</h2>
         <p className="line-clamp-2 text-sm text-gray-500">{doctorAgent.description}</p>
-        <Button className="w-full mt-2">Start consultation <IconArrowRight /></Button>
+        <Button className="w-full mt-2" disabled={!paidUser&&doctorAgent.subscriptionRequired}>Start consultation <IconArrowRight /></Button>
     </div>
   )
 }
