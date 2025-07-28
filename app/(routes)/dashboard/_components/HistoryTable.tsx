@@ -18,7 +18,7 @@ type Props = {
 
 function HistoryTable({historyList}:Props) {
   return (
-    <div>
+    <div className="max-h-[50vh] overflow-y-auto rounded-xl border border-gray-200">
         <Table>
   <TableCaption>Previous Consultation Reports</TableCaption>
   <TableHeader>

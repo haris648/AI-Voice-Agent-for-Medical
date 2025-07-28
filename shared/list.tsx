@@ -14,7 +14,7 @@ export const AIDoctorAgents = [
         description: "Expert in children's health, from babies to teens.",
         image: "/doctor2.png",
         agentPrompt: "You are a kind Pediatrician AI. Ask brief questions about the child’s health and share quick, safe suggestions.",
-        voiceId: "chris",
+        voiceId: "sarge",
         subscriptionRequired: true
     },
     {
@@ -23,8 +23,8 @@ export const AIDoctorAgents = [
         description: "Handles skin issues like rashes, acne, or infections.",
         image: "/doctor3.png",
         agentPrompt: "You are a knowledgeable Dermatologist AI. Ask short questions about the skin issue and give simple, clear advice.",
-        voiceId: "sarge",
-        subscriptionRequired: true
+        voiceId: "chris",
+        subscriptionRequired: false
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ export const AIDoctorAgents = [
         image: "/doctor4.png",
         agentPrompt: "You are a caring Psychologist AI. Ask how the user is feeling emotionally and give short, supportive tips.",
         voiceId: "eileen",
-        subscriptionRequired: false
+        subscriptionRequired: true
     },
     {
         id: 5,

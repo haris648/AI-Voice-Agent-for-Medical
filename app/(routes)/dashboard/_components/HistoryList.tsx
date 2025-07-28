@@ -6,9 +6,11 @@ import AddNewSessionDialog from './AddNewSessionDialog';
 import axios from 'axios';
 import HistoryTable from './HistoryTable';
 import { sessionDetail } from '../medical-agent/[sessionId]/page';
+import { Loader } from 'lucide-react'
 
 function HistoryList() {
     const [historyList, setHistoryList]= useState<sessionDetail[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       GetHistoryList();
@@ -20,9 +22,16 @@ function HistoryList() {
         const result = await axios.get('/api/session-chat?sessionId=all');
         console.log(result.data);
         setHistoryList(result.data);
+        setLoading(false);
     }
 
-
+  if (loading) {
+    return (
+      <div className="h-[70vh] flex items-center justify-center">
+        <Loader className="h-10 w-10 animate-spin text-blue-500" />
+      </div>
+    )
+  }
   return (
     <div className='mt-10'>
         {historyList.length == 0 ?
