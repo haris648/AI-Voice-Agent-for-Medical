@@ -74,7 +74,7 @@ function AddNewSessionDialog() {
   return (
     <Dialog>
   <DialogTrigger>
-    <Button className='mt-3' disabled={!paidUser&&historyList?.length>=1}>+ Start a Consultation</Button>
+    <Button className='mt-3 cursor-pointer' disabled={!paidUser&&historyList?.length>=1}>+ Start a Consultation</Button>
   </DialogTrigger>
   <DialogContent>
     <DialogHeader>

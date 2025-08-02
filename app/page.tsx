@@ -7,9 +7,16 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from 'next/image'
+import HomeCarousel from "./_components/HomeCarousel";
+import HeroSection from "./_components/HeroSection";
+import FeaturesSection from "./_components/FeaturesSection";
+import { PhoneCall, VideoIcon } from "lucide-react";
+import { IconArrowRight } from "@tabler/icons-react";
+import HowItWorksSection from "./_components/HowItWorksSection";
+import TestimonialsSection from "./_components/TestimonialsSection";
 
 
-export default function HeroSectionOne() {
+export default function Homepage() {
   return (
     <div className="relative my-10 flex flex-col items-center justify-center ">
       <Navbar />
@@ -23,25 +30,42 @@ export default function HeroSectionOne() {
         <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
       </div>
       <div className="px-4 py-10 md:py-20">
-        <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-700 md:text-4xl lg:text-7xl dark:text-slate-300">
-          {"Your AI Medical Voice Assistant"
-            .split(" ")
-            .map((word, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index * 0.1,
-                  ease: "easeInOut",
-                }}
-                className="mr-2 inline-block"
-              >
-                {word}
-              </motion.span>
-            ))}
-        </h1>
+        <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-black md:text-4xl lg:text-7xl dark:text-slate-300">
+  {["Your", "AI", "Medical"].map((word, index) => (
+    <motion.span
+      key={`line1-${index}`}
+      initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      transition={{
+        duration: 0.3,
+        delay: index * 0.1,
+        ease: "easeInOut",
+      }}
+      className={`mr-2 inline-block ${
+        word === "Medical" ? "text-blue-500 dark:text-blue-400" : ""
+      }`}
+    >
+      {word}
+    </motion.span>
+  ))}
+  <br />
+  {["Voice", "Assistant"].map((word, index) => (
+    <motion.span
+      key={`line2-${index}`}
+      initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      transition={{
+        duration: 0.3,
+        delay: (index + 2) * 0.1, // continue delay from previous line
+        ease: "easeInOut",
+      }}
+      
+      className="mr-2 inline-block"
+    >
+      {word}
+    </motion.span>
+  ))}
+</h1>
         <motion.p
           initial={{
             opacity: 0,
@@ -55,9 +79,10 @@ export default function HeroSectionOne() {
           }}
           className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-600 dark:text-neutral-400"
         >
-          Save time, improve patient care, and let AI handle your symptoms and diseases.
+          Save time, improve patient care, and let AI handle your symptoms and diseases. Experience the future of healthcare with intelligent voice-powered consultations.
         </motion.p>
 
+        <div className="flex flex-wrap gap-4 mt-8 z-10 relative items-center justify-center ">
         <Link href={'/sign-in'}>
           <motion.div
             initial={{
@@ -70,43 +95,43 @@ export default function HeroSectionOne() {
               duration: 0.3,
               delay: 1,
             }}
-            className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
+            
           >
-            <button className="w-60 cursor-pointer transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+            <button className="w-60 flex items-center justify-center gap-2 cursor-pointer transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
               Explore Now
+              <IconArrowRight className="w-5 h-5" />
+            </button>
+
+            
+          </motion.div>
+        </Link>
+
+        <Link href={'https://drive.google.com/file/d/14qbroiBVfm2IDqICL4JgtVKyeLPpp_oe/view?usp=sharing'}>
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.3,
+              delay: 1,
+            }}
+            
+          >
+            <button className="w-60 flex items-center justify-center gap-2 cursor-pointer transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+              Watch Demo
+              <VideoIcon className="w-5 h-5" />
             </button>
             
           </motion.div>
         </Link>
-        
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 10,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.3,
-            delay: 1.2,
-          }}
-          className="relative z-10 mt-20 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
-        >
-          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-            <img
-              src="https://assets.aceternity.com/pro/aceternity-landing.webp"
-              alt="Landing page preview"
-              className="aspect-[16/9] h-auto w-full object-cover"
-              height={1000}
-              width={1000}
-            />
-            
-          </div>
-        </motion.div>
+        </div>
       </div>
-    <FeaturesBentoGrid/>
+      <FeaturesSection/>
+      <HowItWorksSection/>
+      <TestimonialsSection/>
     </div>
   );
 }
@@ -116,7 +141,7 @@ const Navbar = () => {
   return (
     <nav className="flex w-full items-center justify-between border-t border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
       <div className="flex items-center gap-2">
-        <Image src={'/logo.svg'} alt='logo' width={160} height={80} />
+        <Image src={'/MedLogo.png'} alt='logo' width={160} height={80} />
       </div>
       {!user ?
         <Link href={'/sign-in'}>
