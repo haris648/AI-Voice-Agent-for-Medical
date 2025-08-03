@@ -91,9 +91,13 @@ function ViewReportDialog({record}:props) {
             <hr className='bg-blue-500 h-[3px] mb-2'/>
             <div className='grid grid-cols-2'>
                 <ul className="list-disc pl-5">
-                  {parsedReport?.medicationsMentioned?.map((medicationsMentioned, index) => (
-                  <li className=' text-black' key={index}>{medicationsMentioned}</li>
-                  ))}
+                  {Array.isArray(parsedReport?.medicationsMentioned) ? (
+                  parsedReport.medicationsMentioned.map((medication, index) => (
+                  <li className='text-black' key={index}>{medication}</li>
+                  ))
+                  ) : (
+                  <li className='text-black'>No medications mentioned, Consult doctor physically</li>
+                  )}
                 </ul>
             </div>
 
