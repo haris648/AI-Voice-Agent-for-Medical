@@ -42,8 +42,8 @@ function ViewReportDialog({record}:props) {
   <DialogTrigger>
     <Button variant={'link'} size={'sm'}>View Report</Button>
   </DialogTrigger>
-  <DialogContent className="max-h-[90vh] overflow-y-auto ">
-    <DialogHeader>
+  <DialogContent className="max-h-[90vh] overflow-y-auto">
+    <DialogHeader className="text-left">
       <DialogTitle asChild>
         <h2 className='text-center text-4xl '>Medical Agent Voice AI Report</h2>
       </DialogTitle>
