@@ -74,7 +74,7 @@ function AddNewSessionDialog() {
   return (
     <Dialog>
   <DialogTrigger>
-    <Button className='mt-3 cursor-pointer' disabled={!paidUser&&historyList?.length>=1}>+ Start a Consultation</Button>
+    <Button className='mt-3 cursor-pointer'>+ Start a Consultation</Button>
   </DialogTrigger>
   <DialogContent>
     <DialogHeader>
@@ -82,7 +82,7 @@ function AddNewSessionDialog() {
       <DialogDescription asChild>
         {!suggestedDoctors? <div>
             <h2>Add Symptoms or Any Other Details</h2>
-            <Textarea placeholder='Add Details Here....' className='h-[200px] mt-1'
+            <Textarea placeholder='Example: I am having headache....' className='h-[200px] mt-1'
             onChange={(e)=>setNote(e.target.value)}/>
         </div>:
 
@@ -111,7 +111,7 @@ function AddNewSessionDialog() {
           
           Next {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>
           :
-          <Button disabled={loading || !selectedDoctor} onClick={()=>onStartConsultation()}>Start Consultation
+          <Button className='cursor-pointer' disabled={loading || !selectedDoctor} onClick={()=>onStartConsultation()}>Start Consultation
           {loading ? <Loader2 className='animate-spin' />:<ArrowRight/>}</Button>}
     </DialogFooter>
   </DialogContent>
