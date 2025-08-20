@@ -1,8 +1,8 @@
 import React from 'react'
 import HistoryList from './_components/HistoryList'
-import { Button } from '@/components/ui/button'
 import DoctorsAgentList from './_components/DoctorsAgentList'
 import AddNewSessionDialog from './_components/AddNewSessionDialog'
+import FooterSection from '@/app/_components/FooterSection'
 
 function Dashboard() {
     return (
@@ -14,6 +14,7 @@ function Dashboard() {
             <HistoryList />
 
             <DoctorsAgentList />
+            <FooterSection/>
         </div>
     )
 }
